@@ -35,7 +35,7 @@ jobs:
   get-video:
     runs-on: ubuntu-latest
     timeout-minutes: 180
-    permissions:
+    
       contents: write
       
       - name: بررسی اولیه
