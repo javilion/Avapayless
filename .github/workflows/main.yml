@@ -1,8 +1,9 @@
-name: 01 - 🎬 دانلود ویدیو
+name: 01 - 🎬 دانلود یوتیوب
 
 on:
   workflow_dispatch:
     inputs:
+      
       video_urls:
         description: '🔗 لینک ویدیو ( چند لینک با فاصله )'
         required: true
@@ -32,11 +33,31 @@ on:
         type: string
 
 jobs:
+ 
+
   get-video:
+    name: "📥 دانلود ویدیو"
     runs-on: ubuntu-latest
     timeout-minutes: 180
-    
-      
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check URL provided
+        run: |
+          if [ -z "${{ github.event.inputs.video_urls }}" ]; then
+            echo ""
+            echo "❌ لینک ویدیو وارد نشده است!"
+            echo ""
+            echo "📌 راهنما:"
+            echo "   1️⃣ workflow را دوباره اجرا کنید"
+            echo "   2️⃣ در فیلد 'لینک ویدیو' آدرس را وارد کنید"
+            echo "   3️⃣ برای چند ویدیو، لینک‌ها را با فاصله جدا کنید"
+            echo ""
+            exit 1
+          fi
+          echo "✅ لینک ویدیو دریافت شد"
+
       - name: بررسی اولیه
         uses: actions/checkout@v4
         with:
